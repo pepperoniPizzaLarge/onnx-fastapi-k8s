@@ -1,0 +1,13 @@
+torch
+torchvision
+onnx
+onnxruntime
+onnxscript
+pillow
+numpy
+fastapi
+pydantic
+uvicorn
+requests
+google-cloud-storage
+sqlalchemy

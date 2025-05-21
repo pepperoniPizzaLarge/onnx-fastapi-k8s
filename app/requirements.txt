@@ -1,0 +1,10 @@
+numpy
+uvicorn
+Pillow
+onnxruntime
+fastapi
+pydantic
+python-multipart
+google-cloud-storage
+requests
+sqlalchemy

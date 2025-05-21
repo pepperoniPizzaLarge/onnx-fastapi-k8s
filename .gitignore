@@ -1,0 +1,6 @@
+val.X/
+torch2onnx/
+**/__pycache__/
+notes.txt
+**/models/
+onnxFastapi.db
