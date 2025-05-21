@@ -1,1 +1,1 @@
-Say bruh
+Serving ONNX model using FastAPI. Deploy to GKE once have some money
