@@ -1,6 +1,6 @@
 numpy
 uvicorn
-Pillow
+pillow
 onnxruntime
 fastapi
 pydantic
@@ -8,3 +8,5 @@ python-multipart
 google-cloud-storage
 requests
 sqlalchemy
+argon2-cffi
+python-jose[cryptography]

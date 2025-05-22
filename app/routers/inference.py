@@ -6,14 +6,18 @@ import json
 import urllib.request
 
 import onnxruntime as ort
+from typing import Annotated
 from contextlib import asynccontextmanager
-from fastapi import APIRouter, File, Form, HTTPException
+from fastapi import APIRouter, File, Form, HTTPException, Depends
+from sqlalchemy.orm import Session
 
 from .utils import preprocess, decode_predictions, download_model
 from .utils.data_model import ImageDataInput,ImageDataOutput
+from .auth import get_current_user
+from database.db import SessionLocal
 
 
-
+# declare path for downloading model
 bucket_name = "ort-img-test"
 model_name = "mobilenet_V3_large.onnx"
 local_folder = "models/"
@@ -24,7 +28,7 @@ force_download = False  # True to force download
 # lifespan event to load model once at startup
 @asynccontextmanager  
 async def yield_model(router: APIRouter):
-    if not os.path.isdir(local_path) or force_download:
+    if not os.path.isfile(local_path) or force_download:
         download_model(bucket_name, model_name, local_folder, local_path)
     
     global ort_sess
@@ -48,15 +52,24 @@ async def yield_model(router: APIRouter):
 # Serving FastAPI
 router = APIRouter(lifespan=yield_model)
 
+user_dependency = Annotated[dict, Depends(get_current_user)]
+
+
 @router.get("/")
 def read_root():
     return f"API is up at {socket.gethostname()}."
 
 
 @router.post("/api/v1/ort")
-def onnx_classification(urls: ImageDataInput,
-                        with_post_process: bool = True
-):    
+async def onnx_classification(user: user_dependency, 
+                              urls: ImageDataInput,
+                              with_post_process: bool = True,
+):
+    if user is None:
+        raise HTTPException(status_code=401, detail="Authentication Failed.")
+    
+    
+            
     image_urls = [str(x) for x in urls.url]
     image = preprocess(image_urls[0])
     
