@@ -16,7 +16,8 @@ router = APIRouter(
     tags=['auth']
 )
 
-JWT_SECRET = "8a1fc1e8922b38d6ce50d4acd5c795cfd1dc5c8680197d5439a50e2bc686"  # generated using git bash openssl
+JWT_SECRET = "8a1fc1e8922b38d6ce50d4acd5c795cfd1dc5c8680197d5439a50e2bc686"  # for testing, generated using git bash openssl
+# JWT_SECRET = os.getenv("SECRET_KEY", "mysecretkey")
 JWT_HASH_AlG = "HS256"
 
 # the client (the frontend running in the user's browser)

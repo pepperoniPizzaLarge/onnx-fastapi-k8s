@@ -9,12 +9,10 @@ import onnxruntime as ort
 from typing import Annotated
 from contextlib import asynccontextmanager
 from fastapi import APIRouter, File, Form, HTTPException, Depends
-from sqlalchemy.orm import Session
 
 from .utils import preprocess, decode_predictions, download_model
 from .utils.data_model import ImageDataInput,ImageDataOutput
 from .auth import get_current_user
-from database.db import SessionLocal
 
 
 # declare path for downloading model
@@ -61,13 +59,12 @@ def read_root():
 
 
 @router.post("/api/v1/ort")
-async def onnx_classification(user: user_dependency, 
+async def onnx_classification(user: user_dependency,  # enforce signin using user_dependency
                               urls: ImageDataInput,
                               with_post_process: bool = True,
 ):
     if user is None:
         raise HTTPException(status_code=401, detail="Authentication Failed.")
-    
     
     image_urls = [str(x) for x in urls.url]
     image = preprocess(image_urls[0])
