@@ -69,7 +69,6 @@ async def onnx_classification(user: user_dependency,
         raise HTTPException(status_code=401, detail="Authentication Failed.")
     
     
-            
     image_urls = [str(x) for x in urls.url]
     image = preprocess(image_urls[0])
     
