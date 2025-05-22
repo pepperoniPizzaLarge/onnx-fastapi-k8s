@@ -11,3 +11,6 @@ uvicorn
 requests
 google-cloud-storage
 sqlalchemy
+argon2-cffi
+python-multipart
+python-jose[cryptography]
