@@ -3,14 +3,15 @@ kind: Deployment
 metadata:
   name: api-deployment
 spec:
-  replica: 2
+  replicas: 1
   selector:
     matchLabels:
       component: api
   template:
     metadata:
-      labels: api
-    specs:
+      labels: 
+        component: api
+    spec:
       containers:
         - name: api
           image: pepperonipizzalarge/onnx-api
@@ -24,7 +25,7 @@ spec:
             - name: PGPORT
               value: '5432'
             - name: PGDATABASE
-              value: onnxFastapi  # name of database
+              value: postgres  # name of database
             - name: PGPASSWORD  # must match what the source code looks for
               valueFrom:
                 secretKeyRef:

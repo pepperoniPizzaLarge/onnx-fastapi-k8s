@@ -1,11 +1,11 @@
-FROM python:3:11-slim
+FROM python:3.11.11
 
 # Set working directory inside the container
 WORKDIR /app
 
 # Install dependencies
 COPY requirements.txt .
-RUN pip install --upgrade pip && -r requirements.txt
+RUN pip install -r requirements.txt
 
 # Copy source code
 COPY . .

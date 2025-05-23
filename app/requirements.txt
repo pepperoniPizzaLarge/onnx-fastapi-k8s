@@ -10,3 +10,4 @@ requests
 sqlalchemy
 argon2-cffi
 python-jose[cryptography]
+psycopg2

@@ -14,3 +14,4 @@ sqlalchemy
 argon2-cffi
 python-multipart
 python-jose[cryptography]
+psycopg2
