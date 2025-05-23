@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: api
+  template:
+    metadata:
+      labels: 
+        component: api
+    spec:
+      containers:
+        - name: api
+          image: pepperonipizzalarge/onnx-api
+          ports:
+            - containerPort: 5000
+          env:
+            - name: PGUSER
+              value: postgres  # default
+            - name: PGHOST  # the host will be the pg-cluster-ip-service
+              value: postgres-cluster-ip-service  # inside the pg-cluster-ip-service yaml
+            - name: PGPORT
+              value: '5432'
+            - name: PGDATABASE
+              value: postgres  # name of database
+            - name: PGPASSWORD  # must match what the source code looks for
+              valueFrom:
+                secretKeyRef:
+                  name: pgpassword
+                  key: PGPASSWORD

@@ -1,12 +1,13 @@
 numpy
+fastapi
 uvicorn
+pydantic
 pillow
 onnxruntime
-fastapi
-pydantic
 python-multipart
 google-cloud-storage
 requests
 sqlalchemy
 argon2-cffi
 python-jose[cryptography]
+psycopg2

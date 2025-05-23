@@ -80,7 +80,8 @@ def create_access_token(username: str, user_id: int, expires_delta=timedelta):
     return jwt.encode(encode, JWT_SECRET, algorithm=JWT_HASH_AlG)
     
 
-async def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
+async def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):  # Depends on oauth2_bearer
+    """Receive a JWT from the oauth2_bearer and return the user"""
     try:
         payload = jwt.decode(token, JWT_SECRET, algorithms=[JWT_HASH_AlG])
         username: str = payload.get('sub')  # set "sub" as username above

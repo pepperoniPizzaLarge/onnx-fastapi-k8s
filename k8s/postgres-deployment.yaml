@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      component: postgres
+  template:
+    metadata:
+      labels:
+        component: postgres
+    spec:
+      volumes:
+        - name: postgres-storage
+          persistentVolumeClaim:
+            claimName: database-persistent-volume-claim
+      containers:
+        - name: postgres
+          image: postgres
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: postgres-storage  # ==line 16 - tell the container to go the the volume named postgres-storage to get a PV
+              mountPath: /var/lib/postgresql/data  # default dir postgress use to store data inside a container; postgres thinks it's writing to this location, but data will actually be written to the above PV
+              subPath: postgres  # data written to the PV will be stored here (a folder called postgress)
+          env:
+            - name: POSTGRES_PASSWORD  # must use this name for the new official PG image pulled from Dockerhub
+              valueFrom:
+                secretKeyRef:
+                  name: pgpassword
+                  key: PGPASSWORD
