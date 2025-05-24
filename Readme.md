@@ -1,4 +1,4 @@
-Create an efficient, secure, rate-limit applied ML API with ONNX, FastAPI, Docker and Kubernetes
+Create an efficient, secure, rate-limit applied Image classification API with ONNX, FastAPI, Docker and Kubernetes
 
 The API requires users to sign up and signin before they can POST the ONNX model. The endpoints is protected using OAuth2 logic, specifically, JWT authentication. A Postgres container will house the credentials. There's also rate-limit logic applied to guard against API abuse or overload. 
 
