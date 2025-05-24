@@ -1,6 +1,6 @@
 Create an efficient, secure, rate-limit applied Image classification API with ONNX, FastAPI, Docker and Kubernetes
 
-The API requires users to sign up and signin before they can POST the ONNX model. The endpoints is protected using OAuth2 logic, specifically, JWT authentication. A Postgres container will house the credentials. There's also rate-limit logic applied to guard against API abuse or overload. 
+The API requires users to sign up and signin before they can POST the ONNX model. The endpoints are protected using OAuth2 logic, specifically, JWT authentication. A Postgres container will house the credentials. There's also rate-limit logic applied to guard against API abuse or overload. 
 
 There's sample code to export a Pytorch MobileNet_V3_Large model to ONNX inside the /convert directory; the ONNX model will be created with no image preprocessing applied. This was done to limit the size of the Docker image as we won't require Pytorch and Torchvision. We will serve only the ONNX model and use numpy to replicate Pytorch's image preprocess transforms for the model. 
 
